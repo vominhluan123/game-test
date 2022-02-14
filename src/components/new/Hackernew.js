@@ -8,6 +8,7 @@ const Hackernew = () => {
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
   const handleFetchData = useRef({});
+  const inputRef = useRef();
   const [url, setUrl] = useState(
     `https://hn.algolia.com/api/v1/search?query=${query}`
   );
@@ -27,6 +28,7 @@ const Hackernew = () => {
   // }, 500);
   React.useEffect(() => {
     handleFetchData.current();
+    if (inputRef.current) inputRef.current.focus();
   }, [url]);
   return (
     <div className="bg-white mx-auto mt-5 mb-5 p-5 rounded-lg shadow-md w-2/4">
@@ -37,6 +39,7 @@ const Hackernew = () => {
           placeholder="Keyword..."
           defaultValue={query}
           onChange={(e) => setQuery(e.target.value)}
+          ref={inputRef}
         />
         <button
           onClick={() =>
